@@ -24,6 +24,20 @@ public class ParkingLots {
 
         return result;
     }
+    public ParkingLot getMostAvailableRateParkLot(){
+        double rate = Double.MIN_VALUE;
+        ParkingLot result = null;
+
+        for (ParkingLot parkingLot : parkingLots) {
+            double currentRate = (double) parkingLot.getEmptyLotNumber() / parkingLot.getTotal();
+            if(rate < currentRate) {
+                rate = currentRate;
+                result = parkingLot;
+            }
+        }
+
+        return result;
+    }
     @Override
     public String toString() {
         return "ParkingLots{" +

@@ -6,6 +6,7 @@ import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.ParkingLots;
 import com.oocl.cultivation.ParkingTicket;
 import com.oocl.cultivation.SmartParkingBoy;
+import com.oocl.cultivation.SuperSmartParkingBoy;
 import org.junit.jupiter.api.Test;
 
 import org.junit.jupiter.api.Assertions;
@@ -93,8 +94,9 @@ class ParkingBoyFacts {
 
         Assertions.assertNotEquals(lotAddress.getLotNumber(), -1);
     }
+
     @Test
-    public void smart_pick_car_from_lot(){
+    public void smart_pick_car_from_lot() {
         List<ParkingLot> parkingLotList = new ArrayList<>();
         parkingLotList.add(new ParkingLot(2));
         parkingLotList.add(new ParkingLot(9));
@@ -110,6 +112,35 @@ class ParkingBoyFacts {
 
         Car returnedCar = parkingBoy.pickCar(lotAddress);
         Assertions.assertEquals(car, returnedCar);
+    }
+
+    @Test
+    public void super_pick_car_from_lot() {
+        List<ParkingLot> parkingLotList = new ArrayList<>();
+        parkingLotList.add(new ParkingLot(2)); /* 1/2 = 50% */
+        parkingLotList.add(new ParkingLot(9)); /* 6/9 = 66% */
+        parkingLotList.add(new ParkingLot(7)); /* 2/7 = 29% */
+
+        ParkingLots parkingLots = new ParkingLots(parkingLotList);
+
+        Car car = new Car("1st");
+        parkingLots.getParkingLots().get(0).parkCar(car, new ParkingTicket(parkingLots.getParkingLots().get(0), 0));
+
+        for (int i = 0; i < 3; i++) {
+            Car car1 = new Car(String.valueOf(i));
+            parkingLots.getParkingLots().get(1).parkCar(car1, new ParkingTicket(parkingLots.getParkingLots().get(1), i));
+        }
+
+        for (int i = 0; i < 5; i++) {
+            Car car1 = new Car(String.valueOf(i));
+            parkingLots.getParkingLots().get(2).parkCar(car1, new ParkingTicket(parkingLots.getParkingLots().get(2), i));
+        }
+
+        Car superCar = new Car("super");
+        SuperSmartParkingBoy superParkingBoy = new SuperSmartParkingBoy();
+        ParkingTicket lotAddress = superParkingBoy.parkCar(parkingLots, superCar);
+
+        Assertions.assertEquals(9, lotAddress.getParkingLot().getTotal());
     }
 }
 
