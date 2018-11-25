@@ -3,29 +3,41 @@ package com.oocl.cultivation.test;
 import com.oocl.cultivation.Car;
 import com.oocl.cultivation.ParkingBoy;
 import com.oocl.cultivation.ParkingLot;
+import com.oocl.cultivation.ParkingLots;
 import com.oocl.cultivation.ParkingTicket;
 import org.junit.jupiter.api.Test;
+
+import org.junit.jupiter.api.Assertions;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParkingBoyFacts {
     @Test
     void should_park_a_car_to_a_parking_lot_and_get_it_back() {
-        ParkingLot parkingLot = new ParkingLot();
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
-        Car car = new Car();
+        List<ParkingLot> parkingLotList = new ArrayList<>();
+        parkingLotList.add(new ParkingLot(2));
+        parkingLotList.add(new ParkingLot(9));
+        parkingLotList.add(new ParkingLot(7));
 
-        ParkingTicket ticket = parkingBoy.park(car);
-        Car fetched = parkingBoy.fetch(ticket);
+        ParkingLots parkingLots = new ParkingLots(parkingLotList);
 
-        assertSame(fetched, car);
+        ParkingBoy parkingBoy = new ParkingBoy();
+        Car car = new Car("1234567");
+
+        ParkingTicket lotAddress = parkingBoy.parkCar(parkingLots, car);
+        System.out.println("normal_pick_car_from_lot: " + lotAddress);
+
+        Car returnedCar = parkingBoy.pickCar(lotAddress);
+        Assertions.assertEquals(car, returnedCar);
     }
 
-    @Test
+   /* @Test
     void should_park_multiple_cars_to_a_parking_lot_and_get_them_back() {
         ParkingLot parkingLot = new ParkingLot();
         ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
-        Car firstCar = new Car();
+        Car firstCar = new Car(String);
         Car secondCar = new Car();
 
         ParkingTicket firstTicket = parkingBoy.park(firstCar);
@@ -150,5 +162,5 @@ class ParkingBoyFacts {
         parkingBoy.park(new Car());
 
         assertEquals("The parking lot is full.", parkingBoy.getLastErrorMessage());
-    }
+    }*/
 }
