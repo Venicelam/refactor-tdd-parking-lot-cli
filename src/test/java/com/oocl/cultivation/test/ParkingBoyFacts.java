@@ -14,6 +14,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParkingBoyFacts {
+    /**
+     * Given I have a parking lot and a car
+     * When I park the car to the parking lot
+     * Then I will be able to pick the car from the parking lot
+     */
     @Test
     void should_park_a_car_to_a_parking_lot_and_get_it_back() {
         List<ParkingLot> parkingLotList = new ArrayList<>();
@@ -32,6 +37,66 @@ class ParkingBoyFacts {
         Car returnedCar = parkingBoy.pickCar(lotAddress);
         Assertions.assertEquals(car, returnedCar);
     }
+
+    /**
+     * Given the parking lot is full
+     * When I park a car to the parking lot
+     * Then I will fail to park the car
+     */
+    @Test
+    public void park_when_full() {
+        List<ParkingLot> parkingLotList = new ArrayList<>();
+        parkingLotList.add(new ParkingLot(2));
+        parkingLotList.add(new ParkingLot(5));
+        ParkingLots parkingLots = new ParkingLots(parkingLotList);
+        ParkingBoy parkingBoy = new ParkingBoy();
+
+        for (int i = 0; i < 7; i++) {
+            Car car = new Car(String.valueOf(i));
+            parkingBoy.parkCar(parkingLots, car);
+        }
+
+        Car shdFail = new Car("fail");
+        ParkingTicket lotAddress = parkingBoy.parkCar(parkingLots, shdFail);
+
+        Assertions.assertEquals(lotAddress.getLotNumber(), -1);
+    }
+
+
+    /**
+     * Given the parking lot is full
+     * When I pick a car from the parking lot
+     * Then I will be able to park a car to the parking lot
+     */
+
+    @Test
+    public void park_after_pick_from_full() {
+        List<ParkingLot> parkingLotList = new ArrayList<>();
+        parkingLotList.add(new ParkingLot(2));
+        parkingLotList.add(new ParkingLot(5));
+        ParkingLots parkingLots = new ParkingLots(parkingLotList);
+        ParkingBoy parkingBoy = new ParkingBoy();
+
+        for (int i = 0; i < 7; i++) {
+            Car car = new Car(String.valueOf(i));
+            ParkingTicket lotAddress = parkingBoy.parkCar(parkingLots, car);
+
+            if (i == 6) {
+                parkingBoy.pickCar(lotAddress);
+            }
+        }
+
+        Car shdOk = new Car("ok");
+        ParkingTicket lotAddress = parkingBoy.parkCar(parkingLots, shdOk);
+        System.out.println("park_after_pick_from_full: " + lotAddress);
+
+        Assertions.assertNotEquals(lotAddress.getLotNumber(), -1);
+    }
+}
+
+
+
+
 
    /* @Test
     void should_park_multiple_cars_to_a_parking_lot_and_get_them_back() {
@@ -163,4 +228,4 @@ class ParkingBoyFacts {
 
         assertEquals("The parking lot is full.", parkingBoy.getLastErrorMessage());
     }*/
-}
+
