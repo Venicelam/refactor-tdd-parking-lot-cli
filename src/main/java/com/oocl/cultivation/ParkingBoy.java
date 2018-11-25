@@ -2,24 +2,30 @@ package com.oocl.cultivation;
 
 public class ParkingBoy {
 
-    private final ParkingLot parkingLot;
-    private String lastErrorMessage;
+    public ParkingTicket parkCar(ParkingLots parkingLots, Car car) {
+        int emptyLot = -1;
+        ParkingLot parkingLot = null;
+        for (ParkingLot current : parkingLots.getParkingLots()) {
+            parkingLot = current;
+            emptyLot = current.getEmptyLot();
+            if(emptyLot != -1) {
+                break;
+            }
+        }
 
-    public ParkingBoy(ParkingLot parkingLot) {
-        this.parkingLot = parkingLot;
+        ParkingTicket lotAddress =  new ParkingTicket(parkingLot, emptyLot);
+
+        if(emptyLot != -1) {
+            parkingLot.parkCar(car, lotAddress);
+        }
+
+        return lotAddress;
     }
 
-    public ParkingTicket park(Car car) {
-        // TODO: Please implement the method
-        throw new RuntimeException("Not implemented");
+    public Car pickCar(ParkingTicket lotAddress) {
+        ParkingLot parkingLot = lotAddress.getParkingLot();
+        return parkingLot.pickCar(lotAddress.getLotNumber());
     }
 
-    public Car fetch(ParkingTicket ticket) {
-        // TODO: Please implement the method
-        throw new RuntimeException("Not implemented");
-    }
-
-    public String getLastErrorMessage() {
-        return lastErrorMessage;
-    }
 }
+
