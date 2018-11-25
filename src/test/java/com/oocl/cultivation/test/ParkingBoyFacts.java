@@ -5,6 +5,7 @@ import com.oocl.cultivation.ParkingBoy;
 import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.ParkingLots;
 import com.oocl.cultivation.ParkingTicket;
+import com.oocl.cultivation.SmartParkingBoy;
 import org.junit.jupiter.api.Test;
 
 import org.junit.jupiter.api.Assertions;
@@ -92,13 +93,31 @@ class ParkingBoyFacts {
 
         Assertions.assertNotEquals(lotAddress.getLotNumber(), -1);
     }
+    @Test
+    public void smart_pick_car_from_lot(){
+        List<ParkingLot> parkingLotList = new ArrayList<>();
+        parkingLotList.add(new ParkingLot(2));
+        parkingLotList.add(new ParkingLot(9));
+        parkingLotList.add(new ParkingLot(7));
+
+        ParkingLots parkingLots = new ParkingLots(parkingLotList);
+
+        SmartParkingBoy parkingBoy = new SmartParkingBoy();
+        Car car = new Car("1234567");
+
+        ParkingTicket lotAddress = parkingBoy.parkCar(parkingLots, car);
+        System.out.println("smart_pick_car_from_lot: " + lotAddress);
+
+        Car returnedCar = parkingBoy.pickCar(lotAddress);
+        Assertions.assertEquals(car, returnedCar);
+    }
 }
 
 
 
+/*
 
-
-   /* @Test
+    @Test
     void should_park_multiple_cars_to_a_parking_lot_and_get_them_back() {
         ParkingLot parkingLot = new ParkingLot();
         ParkingBoy parkingBoy = new ParkingBoy(parkingLot);

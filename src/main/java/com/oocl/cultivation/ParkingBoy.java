@@ -11,7 +11,7 @@ public class ParkingBoy {
             emptyLot = current.getEmptyLot();
             if(emptyLot != -1) {
                 Message = "Not enough position.";
-                return null;
+                break;
             }
         }
 
@@ -27,12 +27,12 @@ public class ParkingBoy {
     public Car pickCar(ParkingTicket lotAddress) {
         ParkingLot parkingLot = lotAddress.getParkingLot();
         if (parkingLot == null){
-            Message = "Unrecognized parking ticket.";
+           Message = "Unrecognized parking ticket.";
         }
         if (lotAddress == null){
-            Message = "Please provide your parking ticket.";
-            return null;
-        }
+           Message = "Please provide your parking ticket.";
+           return null;
+       }
         return parkingLot.pickCar(lotAddress.getLotNumber());
     }
 
