@@ -35,6 +35,8 @@ public class ParkingBoy {
        }
         return parkingLot.pickCar(lotAddress.getLotNumber());
     }
-
+    public String getLastErrorMessage() {
+        return Message;
+    }
 }
 
