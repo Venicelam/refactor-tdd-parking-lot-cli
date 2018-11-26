@@ -29,9 +29,7 @@ public class ParkingLot {
         this.lots = new ArrayList<>(Collections.nCopies(total, null));
     }
 
-    public boolean isLotOccupied(int lotNumber) {
-       return lots.get(lotNumber) == null;
-    }
+
 
     public int getEmptyLot(){
         for (int i = 0; i < total; i++) {
