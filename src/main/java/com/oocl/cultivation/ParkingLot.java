@@ -15,17 +15,6 @@ public class ParkingLot {
         return total;
     }
 
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
-    public List<Car> getLots() {
-        return lots;
-    }
-
-    public void setLots(List<Car> lots) {
-        this.lots = lots;
-    }
 
     @Override
     public String toString() {
@@ -41,7 +30,7 @@ public class ParkingLot {
     }
 
     public boolean isLotOccupied(int lotNumber) {
-        return lots.get(lotNumber) == null;
+       return lots.get(lotNumber) == null;
     }
 
     public int getEmptyLot(){
