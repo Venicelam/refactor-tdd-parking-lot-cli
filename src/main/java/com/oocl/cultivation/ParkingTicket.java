@@ -13,18 +13,13 @@ public class ParkingTicket {
         return parkingLot;
     }
 
-    public void setParkingLot(ParkingLot parkingLot) {
-        this.parkingLot = parkingLot;
-    }
+
 
     public int getLotNumber() {
         return lotNumber;
     }
 
-    public void setLotNumber(int lotNumber) {
-        this.lotNumber = lotNumber;
-    }
-
+ 
     @Override
     public String toString() {
         return "LotAddress{" +
