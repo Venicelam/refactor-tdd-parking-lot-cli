@@ -32,9 +32,9 @@ public class ParkingLot {
 
 
     public int getEmptyLot(){
-        for (int i = 0; i < total; i++) {
-            if(lots.get(i) == null) {
-                return i;
+        for (int emptyLot = 0; emptyLot < total; emptyLot++) {
+            if(lots.get(emptyLot) == null) {
+                return emptyLot;
             }
         }
 
@@ -42,13 +42,13 @@ public class ParkingLot {
     }
 
     public int getEmptyLotNumber(){
-        int emptyNum = 0;
-        for (int i = 0; i < total; i++) {
-            if(lots.get(i) == null) {
-                emptyNum++;
+        int emptyLotNum = 0;
+        for (int emptyLot = 0; emptyLot < total; emptyLot++) {
+            if(lots.get(emptyLot) == null) {
+                emptyLotNum++;
             }
         }
-        return emptyNum;
+        return emptyLotNum;
     }
 
     public void parkCar(Car car, ParkingTicket address) {
