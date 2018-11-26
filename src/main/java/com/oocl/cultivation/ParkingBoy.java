@@ -6,9 +6,9 @@ public class ParkingBoy {
     public ParkingTicket parkCar(ParkingLots parkingLots, Car car) {
         int emptyLot = -1;
         ParkingLot parkingLot = null;
-        for (ParkingLot current : parkingLots.getParkingLots()) {
-            parkingLot = current;
-            emptyLot = current.getEmptyLot();
+        for (ParkingLot currentSpace : parkingLots.getParkingLots()) {
+            parkingLot = currentSpace;
+            emptyLot = currentSpace.getEmptyLot();
             if(emptyLot != -1) {
                 Message = "Not enough position.";
                 break;
