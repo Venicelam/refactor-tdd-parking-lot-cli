@@ -1,0 +1,6 @@
+1. remove some unused getter and setter in ParkingLot setTotal, getLots, setLots)
+2. remove some unused method in ParkingLot (isLotOccupied)
+3. remove unused method in ParkingBoy (getLastErrorMessage)
+4. remove unused methods in ParkingTicket (setParkingLot, setLotNumber)
+5. rename unclear variable name (current to currentSpace)
+6. define clearer variable name in for loop in ParkingLot (i to emptyLot)
